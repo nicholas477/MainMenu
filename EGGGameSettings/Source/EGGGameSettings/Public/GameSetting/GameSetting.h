@@ -45,6 +45,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Apply();
 
+	UFUNCTION(BlueprintCallable)
+	void Save();
+
 	UFUNCTION(BlueprintPure, meta = (DeterminesOutputType = "GameSettingClass"))
 	static UGameSetting* GetGameSetting(TSubclassOf<UGameSetting> GameSettingClass);
 
@@ -70,13 +73,15 @@ public:
 	virtual void OnSettingChanged(EGameSettingChangeReason Reason);
 
 protected:
+	virtual void Startup();
 	virtual void OnApply();
+	virtual void OnSave();
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FText DisplayName;
 
 	UPROPERTY(Transient)
-	ULocalPlayer* LocalPlayer;
+	TWeakObjectPtr<ULocalPlayer> LocalPlayer;
 
 	UPROPERTY(Transient)
 	UGameSetting* SettingParent;

@@ -29,15 +29,20 @@ void UGameSetting::Initialize(ULocalPlayer* InLocalPlayer)
 	// If there are any child settings go ahead and initialize them as well.
 	for (UGameSetting* Setting : GetChildSettings())
 	{
-		Setting->Initialize(LocalPlayer);
+		Setting->Initialize(LocalPlayer.Get());
 	}
 
-	//Startup();
+	Startup();
 }
 
 void UGameSetting::Apply()
 {
 	OnApply();
+}
+
+void UGameSetting::Save()
+{
+	OnSave();
 }
 
 UGameSetting* UGameSetting::GetGameSetting(TSubclassOf<UGameSetting> GameSettingClass)
@@ -62,7 +67,7 @@ void UGameSetting::SetSettingParent(UGameSetting* InSettingParent)
 
 UWorld* UGameSetting::GetWorld() const
 {
-	return LocalPlayer ? LocalPlayer->GetWorld() : nullptr;
+	return LocalPlayer.IsValid() ? LocalPlayer->GetWorld() : nullptr;
 }
 
 void UGameSetting::NotifySettingChanged(EGameSettingChangeReason Reason)
@@ -88,6 +93,16 @@ void UGameSetting::OnSettingChanged(EGameSettingChangeReason Reason)
 }
 
 void UGameSetting::OnApply()
+{
+
+}
+
+void UGameSetting::OnSave()
+{
+
+}
+
+void UGameSetting::Startup()
 {
 
 }

@@ -7,11 +7,15 @@
 #include "MainMenuLocalPlayerSubsystem.generated.h"
 
 /**
- * 
+ * This initializes the settings in the MainMenuConfigurator
  */
 UCLASS()
 class MAINMENU_API UMainMenuLocalPlayerSubsystem : public ULocalPlayerSubsystem
 {
 	GENERATED_BODY()
 	
+public:
+	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
+
+	virtual void InitializeSettings();
 };

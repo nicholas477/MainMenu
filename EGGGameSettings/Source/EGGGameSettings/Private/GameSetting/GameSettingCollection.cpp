@@ -28,8 +28,8 @@ void UGameSettingCollection::AddSetting(UGameSetting* Setting)
 	Settings.Add(Setting);
 	Setting->SetSettingParent(this);
 
-	if (LocalPlayer)
+	if (LocalPlayer.IsValid())
 	{
-		Setting->Initialize(LocalPlayer);
+		Setting->Initialize(LocalPlayer.Get());
 	}
 }
