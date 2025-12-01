@@ -34,6 +34,9 @@ public:
 	FText GetDisplayName() const { return DisplayName; }
 	void SetDisplayName(const FText& Value) { DisplayName = Value; }
 
+	/** Initializes the setting without a local player. Use this for graphics settings or something. */
+	void Initialize();
+
 	/** Initializes the setting, giving it the owning local player.  Containers automatically initialize settings added to them. */
 	void Initialize(ULocalPlayer* InLocalPlayer);
 
@@ -74,6 +77,7 @@ public:
 
 protected:
 	virtual void Startup();
+	virtual void Startup(ULocalPlayer* InLocalPlayer);
 	virtual void OnApply();
 	virtual void OnSave();
 

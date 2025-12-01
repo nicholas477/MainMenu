@@ -39,4 +39,5 @@ protected:
 	UPROPERTY(Config, EditAnywhere, Category = "Main Menu Settings")
 	TSubclassOf<UMainMenuConfigurator> MainMenuConfigurator;
 
+	virtual void PostInitProperties() override;
 };

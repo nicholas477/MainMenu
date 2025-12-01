@@ -3,6 +3,16 @@
 
 #include "GameSetting/GameSetting.h"
 
+void UGameSetting::Initialize()
+{
+	for (UGameSetting* Setting : GetChildSettings())
+	{
+		Setting->Initialize();
+	}
+
+	Startup();
+}
+
 void UGameSetting::Initialize(ULocalPlayer* InLocalPlayer)
 {
 	// If we've already gotten this local player we're already initialized.
@@ -29,10 +39,10 @@ void UGameSetting::Initialize(ULocalPlayer* InLocalPlayer)
 	// If there are any child settings go ahead and initialize them as well.
 	for (UGameSetting* Setting : GetChildSettings())
 	{
-		Setting->Initialize(LocalPlayer.Get());
+		Setting->Initialize(InLocalPlayer);
 	}
 
-	Startup();
+	Startup(InLocalPlayer);
 }
 
 void UGameSetting::Apply()
@@ -103,6 +113,11 @@ void UGameSetting::OnSave()
 }
 
 void UGameSetting::Startup()
+{
+
+}
+
+void UGameSetting::Startup(ULocalPlayer* InLocalPlayer)
 {
 
 }

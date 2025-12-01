@@ -5,6 +5,7 @@
 
 #include "MainMenuFunctionLibrary.h"
 #include "MainMenuConfigurator.h"
+#include "GameSetting/GameSetting.h"
 
 UMainMenuFunctionLibrary* UMainMenuSettings::GetMainMenuFunctionLibrary()
 {
@@ -39,5 +40,21 @@ UMainMenuConfigurator* UMainMenuSettings::GetDefaultMainMenuConfigurator()
     UBlueprint* BP = Cast<UBlueprint>(FSoftObjectPath(TEXT("/MainMenu/BP_DefaultMainMenuConfigurator.BP_DefaultMainMenuConfigurator")).TryLoad());
 
     return BP ? Cast<UMainMenuConfigurator>(BP->GeneratedClass->GetDefaultObject()) : nullptr;
+}
+
+void UMainMenuSettings::PostInitProperties()
+{
+    Super::PostInitProperties();
+
+    if (UMainMenuConfigurator* MyMainMenuConfigurator = GetMainMenuConfigurator())
+    {
+        for (UGameSetting* GameSetting : MyMainMenuConfigurator->GetGameSettings())
+        {
+            if (GameSetting)
+            {
+                GameSetting->Initialize();
+            }
+        }
+    }
 }
 
